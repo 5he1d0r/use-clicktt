@@ -8,6 +8,10 @@
 // @grant        none
 // ==/UserScript==
 
+// ==OpenUserJS==
+// @author      5he1d0r
+// ==/OpenUserJS==
+
 const isValid = function(pathname) {
     return pathname.includes('gruppe') &&
         pathname.includes('tabelle');
