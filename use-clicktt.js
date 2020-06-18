@@ -8,6 +8,8 @@
 // @author       5he1d0r
 // @match        https://www.mytischtennis.de/*
 // @grant        none
+// @run-at       document-end
+// @updateURL    https://openuserjs.org/users/5he1d0r
 // ==/UserScript==
 
 // ==OpenUserJS==
