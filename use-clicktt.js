@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name         use click-tt
-// @namespace    http://tampermonkey.net/
+// @namespace    https://openuserjs.org/users/5he1d0r
+// @copyright    2020, 5he1d0r (https://openuserjs.org/users/5he1d0r)
 // @version      2.0.0
+// @license      MIT
 // @description  avoid the usage of mytischtennis.de
 // @author       5he1d0r
 // @match        https://www.mytischtennis.de/*
