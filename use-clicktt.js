@@ -2,14 +2,14 @@
 // @name         use click-tt
 // @namespace    https://openuserjs.org/users/5he1d0r
 // @copyright    2020, 5he1d0r (https://openuserjs.org/users/5he1d0r)
-// @version      2.0.0
+// @version      2.0.1
 // @license      MIT
 // @description  avoid the usage of mytischtennis.de
 // @author       5he1d0r
 // @match        https://www.mytischtennis.de/*
 // @grant        none
 // @run-at       document-end
-// @updateURL    https://openuserjs.org/users/5he1d0r
+// @updateURL    https://openuserjs.org/meta/5he1d0r/use_click-tt.meta.js
 // ==/UserScript==
 
 // ==OpenUserJS==
