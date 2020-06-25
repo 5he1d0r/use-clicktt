@@ -27,12 +27,10 @@ const isValid = function(pathname) {
     if(isValid(window.location.pathname)){
         var aTag = document.getElementsByClassName('breadcrumb')[0].getElementsByTagName('a')[2];
 
-        var target = 'targetFed' + aTag.href.split('/')[2];
-
         var championship = 'championship=' + aTag.title.split('(')[1].split(')')[0].split(' ').join('+').split('-W').join('w').split('/').join('%2F');
 
         var group = 'group=' + window.location.pathname.split('/')[7];
 
-        location.replace('https://wttv.click-tt.de/cgi-bin/WebObjects/nuLigaTTDE.woa/wa/groupPage?' + target + '&' + championship + '&' + group);
+        location.replace('https://wttv.click-tt.de/cgi-bin/WebObjects/nuLigaTTDE.woa/wa/groupPage?' + championship + '&' + group);
     }
 })();
