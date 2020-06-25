@@ -2,7 +2,7 @@
 // @name         use click-tt
 // @namespace    https://openuserjs.org/users/5he1d0r
 // @copyright    2020, 5he1d0r (https://openuserjs.org/users/5he1d0r)
-// @version      2.0.1
+// @version      2.0.2
 // @license      MIT
 // @description  avoid the usage of mytischtennis.de
 // @author       5he1d0r
@@ -29,7 +29,7 @@ const isValid = function(pathname) {
 
         var target = 'targetFed' + aTag.href.split('/')[2];
 
-        var championship = 'championship=' + aTag.title.split('(')[1].split(')')[0].split(' ').join('+').split('/').join('%2F');
+        var championship = 'championship=' + aTag.title.split('(')[1].split(')')[0].split(' ').join('+').split('-W').join('w').split('/').join('%2F');
 
         var group = 'group=' + window.location.pathname.split('/')[7];
 
