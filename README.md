@@ -4,8 +4,10 @@ This is an user script for using click-tt instead of mytischtennis.
 
 ## Information
 
-The script will activate on the league table on mytischtennis.
-Then you will be redirected to the league table on the click-tt website.
+The script will activate on the league page in click-tt.
+It replaces the links to the group page of mytischtennis with an equivalent group page link to click-tt.
+This gives the possibility that you can still navigate to an group page on mytischtennis with an activated script without getting redirected to click-tt.
+
 It can handle all associations including the DTTV.
 
 ## Setup
