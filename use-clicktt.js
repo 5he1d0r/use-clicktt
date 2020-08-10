@@ -18,7 +18,9 @@
 // @author      5he1d0r
 // ==/OpenUserJS==
 
-const isClickTT = () => window.location.pathname.includes('leaguePage');
+const isClickTT = () => 
+        window.location.pathname.includes('leaguePage') ||
+        window.location.pathname.includes('clubInfoDisplay');
 
 const isBTTV = () => window.location.pathname.includes('ligen');
 
@@ -30,6 +32,16 @@ const needsReplacement = (link) =>
         link.includes('mytischtennis') &&
         link.includes('gruppe') &&
         link.includes('tabelle');
+
+const isOnClubPage = (link) => link.includes('verein') &&
+        (
+            link.includes('info') ||
+            link.includes('spielplan') ||
+            link.includes('mannschaften') ||
+            link.includes('mannschaftsmeldungen') ||
+            link.includes('bilanzen') ||
+            link.includes('funktionaere')
+        );
 
 function regularReplacement(link){
     var target = window.location.hostname.split('.')[0];
@@ -232,6 +244,13 @@ function HTTVReplacement(link){
                 if(isHTTV()){
                     HTTVReplacement(link);
                 }
+            }
+            else if(isOnTeamPage(link)){
+                link.removeAttribute('target');
+                /* var transformed = window.location.pathname
+                    .split('').join('')
+                    .split('').join('');
+                link.setAttribute('href', `${window.location.origin}${transformed}${window.location.search}`); */
             }
         }
     }
