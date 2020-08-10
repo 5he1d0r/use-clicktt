@@ -10,6 +10,7 @@
 // @match        https://*.httv.de/*
 // @grant        none
 // @run-at       document-end
+// @updateURL    https://openuserjs.org/meta/5he1d0r/use_click-tt.meta.js
 // @description  avoid the usage of mytischtennis.de by replacing there links with the click-tt links.
 //               This change gives the opportunity of the one-tab-only usage and much easier navigation.
 // ==/UserScript==
