@@ -8,6 +8,8 @@ The script will activate on the league page in click-tt.
 It replaces the links to the group page of mytischtennis with an equivalent group page link to click-tt.
 This gives the possibility that you can still navigate to an group page on mytischtennis with an activated script without getting redirected to click-tt.
 
+Further this replaces the links on a club page.
+
 It can handle all associations including the DTTV.
 
 ## Setup

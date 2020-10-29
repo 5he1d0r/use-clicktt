@@ -2,7 +2,7 @@
 // @name         use click-tt
 // @namespace    https://openuserjs.org/users/5he1d0r
 // @copyright    2020, 5he1d0r (https://openuserjs.org/users/5he1d0r)
-// @version      3.0.0
+// @version      3.1.0
 // @license      MIT
 // @author       5he1d0r
 // @match        https://*.click-tt.de/*
@@ -10,6 +10,7 @@
 // @match        https://*.httv.de/*
 // @grant        none
 // @run-at       document-end
+// @updateURL    https://openuserjs.org/meta/5he1d0r/use_click-tt.meta.js
 // @description  avoid the usage of mytischtennis.de by replacing there links with the click-tt links.
 //               This change gives the opportunity of the one-tab-only usage and much easier navigation.
 // ==/UserScript==
@@ -26,21 +27,25 @@ const isBTTV = () => window.location.pathname.includes('ligen');
 
 const isHTTV = () => window.location.pathname.includes('mannschaftswettbewerbe');
 
-const isValid = () => isClickTT() || isBTTV() || isHTTV();
+const isOnClubPage = () => window.location.pathname.includes('clubInfoDisplay');
+
+const isValid = () => isClickTT() || isBTTV() || isHTTV() || isOnClubPage();
 
 const needsReplacement = (link) =>
-        link.includes('mytischtennis') &&
-        link.includes('gruppe') &&
-        link.includes('tabelle');
-
-const isOnClubPage = (link) => link.includes('verein') &&
         (
-            link.includes('info') ||
-            link.includes('spielplan') ||
-            link.includes('mannschaften') ||
-            link.includes('mannschaftsmeldungen') ||
-            link.includes('bilanzen') ||
-            link.includes('funktionaere')
+            link.includes('mytischtennis') &&
+            link.includes('gruppe') &&
+            link.includes('tabelle')
+        ) || (
+            link.includes('verein') &&
+            (
+                link.includes('info') ||
+                link.includes('spielplan') ||
+                link.includes('mannschaften') ||
+                link.includes('mannschaftsmeldungen') ||
+                link.includes('bilanzen') ||
+                link.includes('funktionaere')
+            )
         );
 
 function regularReplacement(link){
@@ -237,20 +242,39 @@ function HTTVReplacement(link){
             if(needsReplacement(link.href)){
                 if(isClickTT()){
                     regularReplacement(link);
-                }
-                if(isBTTV()){
+                } else if(isBTTV()){
                     BTTVReplacement(link);
-                }
-                if(isHTTV()){
+                } else if(isHTTV()){
                     HTTVReplacement(link);
+                } else if(isOnClubPage(link.href)){
+                    console.log(link);
+                    var replacement = '';
+                    switch(link.href.split('/')[9]){
+                        case 'info':
+                            replacement = 'clubInfoDisplay';
+                            break;
+                        case 'spielplan':
+                            replacement = 'clubMeetings';
+                            break;
+                        case 'mannschaften':
+                            replacement = 'clubTeams';
+                            break;
+                        case 'mannschaftsmeldungen':
+                            replacement = 'clubPools';
+                            break;
+                        case 'bilanzen':
+                            replacement = 'clubPools';
+                            break;
+                        case 'funktionaere':
+                            replacement = 'clubMemberRoles';
+                            break;
+                    }
+                    var transformed = window.location.pathname
+                        .split('clubInfoDisplay').join(replacement);
+
+                    link.removeAttribute('target');
+                    link.setAttribute('href', `${window.location.origin}${transformed}${window.location.search}`);
                 }
-            }
-            else if(isOnTeamPage(link)){
-                link.removeAttribute('target');
-                /* var transformed = window.location.pathname
-                    .split('').join('')
-                    .split('').join('');
-                link.setAttribute('href', `${window.location.origin}${transformed}${window.location.search}`); */
             }
         }
     }
