@@ -2,7 +2,7 @@
 // @name         use click-tt
 // @namespace    https://openuserjs.org/users/5he1d0r
 // @copyright    2020, 5he1d0r (https://openuserjs.org/users/5he1d0r)
-// @version      3.0.1
+// @version      3.1.0
 // @license      MIT
 // @author       5he1d0r
 // @match        https://*.click-tt.de/*
@@ -19,18 +19,34 @@
 // @author      5he1d0r
 // ==/OpenUserJS==
 
-const isClickTT = () => window.location.pathname.includes('leaguePage');
+const isClickTT = () => 
+        window.location.pathname.includes('leaguePage') ||
+        window.location.pathname.includes('clubInfoDisplay');
 
 const isBTTV = () => window.location.pathname.includes('ligen');
 
 const isHTTV = () => window.location.pathname.includes('mannschaftswettbewerbe');
 
-const isValid = () => isClickTT() || isBTTV() || isHTTV();
+const isOnClubPage = () => window.location.pathname.includes('clubInfoDisplay');
+
+const isValid = () => isClickTT() || isBTTV() || isHTTV() || isOnClubPage();
 
 const needsReplacement = (link) =>
-        link.includes('mytischtennis') &&
-        link.includes('gruppe') &&
-        link.includes('tabelle');
+        (
+            link.includes('mytischtennis') &&
+            link.includes('gruppe') &&
+            link.includes('tabelle')
+        ) || (
+            link.includes('verein') &&
+            (
+                link.includes('info') ||
+                link.includes('spielplan') ||
+                link.includes('mannschaften') ||
+                link.includes('mannschaftsmeldungen') ||
+                link.includes('bilanzen') ||
+                link.includes('funktionaere')
+            )
+        );
 
 function regularReplacement(link){
     var target = window.location.hostname.split('.')[0];
@@ -220,18 +236,47 @@ function HTTVReplacement(link){
     link.setAttribute('href', `https://httv.click-tt.de/cgi-bin/WebObjects/nuLigaTTDE.woa/wa/groupPage?${championship}&${group}`);
 }
 
+function clubViewReplacement(link){
+    var replacement = '';
+    switch(link.href.split('/')[9]){
+        case 'info':
+            replacement = 'clubInfoDisplay';
+            break;
+        case 'spielplan':
+            replacement = 'clubMeetings';
+            break;
+        case 'mannschaften':
+            replacement = 'clubTeams';
+            break;
+        case 'mannschaftsmeldungen':
+            replacement = 'clubPools';
+            break;
+        case 'bilanzen':
+            replacement = 'clubPools';
+            break;
+        case 'funktionaere':
+            replacement = 'clubMemberRoles';
+            break;
+    }
+    var transformed = window.location.pathname
+        .split('clubInfoDisplay').join(replacement);
+
+    link.removeAttribute('target');
+    link.setAttribute('href', `${window.location.origin}${transformed}${window.location.search}`);
+}
+
 (function() {
     if(isValid()){
         for(var link of document.getElementsByTagName('a')){
             if(needsReplacement(link.href)){
                 if(isClickTT()){
                     regularReplacement(link);
-                }
-                if(isBTTV()){
+                } else if(isBTTV()){
                     BTTVReplacement(link);
-                }
-                if(isHTTV()){
+                } else if(isHTTV()){
                     HTTVReplacement(link);
+                } else if(isOnClubPage(link.href)){
+                    clubViewReplacement(link);
                 }
             }
         }

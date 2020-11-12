@@ -1,3 +1,8 @@
+# v3.1.0
+
+- add the replacement of the club related links.
+- optimise runtime
+
 # v3.0.0
 
 - now replacing the links of mytischtennis on the league pages.
