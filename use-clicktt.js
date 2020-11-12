@@ -236,6 +236,35 @@ function HTTVReplacement(link){
     link.setAttribute('href', `https://httv.click-tt.de/cgi-bin/WebObjects/nuLigaTTDE.woa/wa/groupPage?${championship}&${group}`);
 }
 
+function clubViewReplacement(link){
+    var replacement = '';
+    switch(link.href.split('/')[9]){
+        case 'info':
+            replacement = 'clubInfoDisplay';
+            break;
+        case 'spielplan':
+            replacement = 'clubMeetings';
+            break;
+        case 'mannschaften':
+            replacement = 'clubTeams';
+            break;
+        case 'mannschaftsmeldungen':
+            replacement = 'clubPools';
+            break;
+        case 'bilanzen':
+            replacement = 'clubPools';
+            break;
+        case 'funktionaere':
+            replacement = 'clubMemberRoles';
+            break;
+    }
+    var transformed = window.location.pathname
+        .split('clubInfoDisplay').join(replacement);
+
+    link.removeAttribute('target');
+    link.setAttribute('href', `${window.location.origin}${transformed}${window.location.search}`);
+}
+
 (function() {
     if(isValid()){
         for(var link of document.getElementsByTagName('a')){
@@ -247,33 +276,7 @@ function HTTVReplacement(link){
                 } else if(isHTTV()){
                     HTTVReplacement(link);
                 } else if(isOnClubPage(link.href)){
-                    console.log(link);
-                    var replacement = '';
-                    switch(link.href.split('/')[9]){
-                        case 'info':
-                            replacement = 'clubInfoDisplay';
-                            break;
-                        case 'spielplan':
-                            replacement = 'clubMeetings';
-                            break;
-                        case 'mannschaften':
-                            replacement = 'clubTeams';
-                            break;
-                        case 'mannschaftsmeldungen':
-                            replacement = 'clubPools';
-                            break;
-                        case 'bilanzen':
-                            replacement = 'clubPools';
-                            break;
-                        case 'funktionaere':
-                            replacement = 'clubMemberRoles';
-                            break;
-                    }
-                    var transformed = window.location.pathname
-                        .split('clubInfoDisplay').join(replacement);
-
-                    link.removeAttribute('target');
-                    link.setAttribute('href', `${window.location.origin}${transformed}${window.location.search}`);
+                    clubViewReplacement(link);
                 }
             }
         }
