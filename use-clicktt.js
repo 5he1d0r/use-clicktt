@@ -2,7 +2,7 @@
 // @name         use click-tt
 // @namespace    https://openuserjs.org/users/5he1d0r
 // @copyright    2020, 5he1d0r (https://openuserjs.org/users/5he1d0r)
-// @version      3.1.0
+// @version      3.1.1
 // @license      MIT
 // @author       5he1d0r
 // @match        https://*.click-tt.de/*
@@ -20,8 +20,7 @@
 // ==/OpenUserJS==
 
 const isClickTT = () => 
-        window.location.pathname.includes('leaguePage') ||
-        window.location.pathname.includes('clubInfoDisplay');
+        window.location.pathname.includes('leaguePage');
 
 const isBTTV = () => window.location.pathname.includes('ligen');
 
@@ -270,12 +269,16 @@ function clubViewReplacement(link){
         for(var link of document.getElementsByTagName('a')){
             if(needsReplacement(link.href)){
                 if(isClickTT()){
+                    console.log("clickTT replacement");
                     regularReplacement(link);
                 } else if(isBTTV()){
+                    console.log("BTTV replacement");
                     BTTVReplacement(link);
                 } else if(isHTTV()){
+                    console.log("HTTV replacement");
                     HTTVReplacement(link);
                 } else if(isOnClubPage(link.href)){
+                    console.log("ClubPage replacement");
                     clubViewReplacement(link);
                 }
             }
